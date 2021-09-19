@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "api-quick-start"
+version = "0.1.0"
+description = ""
+authors = ["Kevin Henry <kevinhenry@mac.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.2.7"
+djangorestframework = "^3.12.4"
+djangorestframework-simplejwt = "^4.8.0"
+whitenoise = "^5.3.0"
+django-cors-headers = "^3.7.0"
+gunicorn = "^20.1.0"
+django-environ = "^0.7.0"
+psycopg2-binary = "^2.9.1"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.9.0"
+black = {version = "^21.9b0", allow-prereleases = true}
+requests = "^2.25.1"
+fire = "^0.4.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
