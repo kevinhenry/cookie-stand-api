@@ -58,7 +58,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "cookie_stands",
     "rest_framework",
-    "accounts",
+    # "accounts",
     "whitenoise",
     "corsheaders",
 ]
