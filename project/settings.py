@@ -13,26 +13,29 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 env = environ.Env(
     DEBUG=(bool, False),
-    ENVIRONMENT=(str, "PRODUCTION"),
-    ALLOW_ALL_ORIGINS=(bool, False),
-    ALLOWED_HOSTS=(list, []),
-    ALLOWED_ORIGINS=(list, []),
-    DATABASE_ENGINE=(str, "django.db.backends.sqlite3"),
-    DATABASE_NAME=(str, BASE_DIR / "db.sqlite3"),
-    DATABASE_USER=(str, ""),
-    DATABASE_PASSWORD=(str, ""),
-    DATABASE_HOST=(str, ""),
-    DATABASE_PORT=(int, 5432),
 )
 
 environ.Env.read_env()
 
-ENVIRONMENT = env.str("ENVIRONMENT")
+# ENVIRONMENT = env.str("ENVIRONMENT")
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+#     ENVIRONMENT=(str, "PRODUCTION"),
+#     ALLOW_ALL_ORIGINS=(bool, False),
+#     ALLOWED_HOSTS=(list, []),
+#     ALLOWED_ORIGINS=(list, []),
+#     DATABASE_ENGINE=(str, "django.db.backends.sqlite3"),
+#     DATABASE_NAME=(str, BASE_DIR / "db.sqlite3"),
+#     DATABASE_USER=(str, ""),
+#     DATABASE_PASSWORD=(str, ""),
+#     DATABASE_HOST=(str, ""),
+#     DATABASE_PORT=(int, 5432),
+# )
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -47,25 +50,24 @@ ALLOWED_HOSTS = tuple(env.list("ALLOWED_HOSTS"))
 # Application definition
 
 INSTALLED_APPS = [
-    "whitenoise.runserver_nostatic",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # 3rd party
-    "rest_framework",
-    "corsheaders",
-    # local
-    "accounts",
     "cookie_stands",
+    "rest_framework",
+    "accounts",
+    "whitenoise",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -100,12 +102,12 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": env.str("DATABASE_ENGINE"),
-        "NAME": env.str("DATABASE_NAME"),
-        "USER": env.str("DATABASE_USER"),
-        "PASSWORD": env.str("DATABASE_PASSWORD"),
-        "HOST": env.str("DATABASE_HOST"),
-        "PORT": env.int("DATABASE_PORT"),
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env("DATABASE_NAME"),
+        "USER": env("DATABASE_USER"),
+        "PASSWORD": env("DATABASE_PASSWORD"),
+        "HOST": env("DATABASE_HOST"),
+        "PORT": env("DATABASE_PORT"),
     }
 }
 
@@ -149,9 +151,9 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-AUTH_USER_MODEL = "accounts.CustomUser"
+# AUTH_USER_MODEL = "accounts.CustomUser"
 
-DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
